@@ -1,0 +1,132 @@
+{{!--
+  Scene Links settings window.
+
+  The JavaScript passes two main pieces of information to this template:
+  - links: the GM's current draft Scene links.
+  - scenes: every Foundry Scene available in the world.
+
+  data-* attributes are used instead of hard-coded element IDs because the GM may
+  create many Scene links and many matching points in the same window. The script
+  reads those attributes to know exactly which row a changed field belongs to.
+--}}
+<form class="motion-tracker-multideck">
+  {{!-- Plain-language instructions shown before any editable settings. --}}
+  <div class="md-help">
+    <p><strong>Use this screen to tell the Motion Tracker which Scenes are different levels of the same place.</strong></p>
+    <p>Choose <strong>Scene A</strong> and <strong>Scene B</strong>. Then add matching map points so the module knows how the two maps line up. A good matching point is the center of a ladder, lift, stairwell, or teleporter that exists on both Scenes.</p>
+    <p>If both maps face the same direction and use the same scale, one matching point is usually enough. Use two if one map is rotated or a different size. Use three only if the maps are stretched differently.</p>
+    <p><strong>Scene B elevation compared with Scene A</strong> is the physical distance between the two levels, using the same distance unit as the Scene. For example, enter <code>3</code> if Scene B is 3 meters above Scene A. Players only see the total range to a contact; the tracker does not tell them whether it is above or below.</p>
+  </div>
+
+  {{!-- Every configured Scene link is rendered as one card. --}}
+  <div class="md-links">
+    {{#if links.length}}
+      {{#each links as |link li|}}
+        <section class="md-link" data-link-index="{{li}}">
+          <div class="md-link-header">
+            <h3>{{#if link.name}}{{link.name}}{{else}}Scene Link {{link.number}}{{/if}}</h3>
+            <button type="button" class="md-delete-link" data-link-index="{{li}}" title="Delete this Scene link">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+
+          {{!-- Basic settings for this one Scene-to-Scene connection. --}}
+          <div class="md-grid">
+            <div class="md-field">
+              <label>Link name</label>
+              <input type="text" value="{{link.name}}" data-link-index="{{li}}" data-field="name" placeholder="e.g. USCSS Fidanza A/B" />
+            </div>
+            <div class="md-field">
+              <label>Enabled</label>
+              <input type="checkbox" {{#if link.enabled}}checked{{/if}} data-link-index="{{li}}" data-field="enabled" />
+            </div>
+
+            <div class="md-field">
+              <label>Scene A</label>
+              <select data-link-index="{{li}}" data-field="sceneA">
+                <option value="">— Select Scene —</option>
+                {{#each ../scenes as |scene|}}
+                  <option value="{{scene.id}}" {{#if (eq scene.id link.sceneA)}}selected{{/if}}>{{scene.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="md-field">
+              <label>Scene B</label>
+              <select data-link-index="{{li}}" data-field="sceneB">
+                <option value="">— Select Scene —</option>
+                {{#each ../scenes as |scene|}}
+                  <option value="{{scene.id}}" {{#if (eq scene.id link.sceneB)}}selected{{/if}}>{{scene.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+
+            <div class="md-field">
+              <label>Scene B elevation compared with Scene A</label>
+              <input type="number" step="0.01" value="{{link.elevationDelta}}" data-link-index="{{li}}" data-field="elevationDelta" />
+            </div>
+            <div class="md-field">
+              <label>If a contact is exactly above or below</label>
+              <select data-link-index="{{li}}" data-field="verticalBearing">
+                <option value="deterministic" {{#if (eq link.verticalBearing "deterministic")}}selected{{/if}}>Show it at a consistent direction on the tracker</option>
+                <option value="center" {{#if (eq link.verticalBearing "center")}}selected{{/if}}>Keep the blip in the center</option>
+              </select>
+            </div>
+          </div>
+
+          {{!-- Matching points tell the module how the two map images line up. --}}
+          <div class="md-anchor-list">
+            <div class="md-anchor-header">
+              <strong>Matching map points</strong>
+              <button type="button" class="md-add-anchor" data-link-index="{{li}}">
+                <i class="fa-solid fa-plus"></i> Add Matching Point
+              </button>
+            </div>
+
+            {{#if link.anchors.length}}
+              {{#each link.anchors as |anchor ai|}}
+                {{!-- One physical location, recorded once on Scene A and once on Scene B. --}}
+                <div class="md-anchor">
+                  <strong>#{{anchor.number}}</strong>
+
+                  <div class="md-coordinate-group">
+                    <strong>A</strong>
+                    <input type="number" step="0.01" value="{{anchor.a.x}}" placeholder="X" data-link-index="{{li}}" data-anchor-index="{{ai}}" data-side="a" data-axis="x" />
+                    <input type="number" step="0.01" value="{{anchor.a.y}}" placeholder="Y" data-link-index="{{li}}" data-anchor-index="{{ai}}" data-side="a" data-axis="y" />
+                    <span></span>
+                    <button type="button" class="md-capture" data-link-index="{{li}}" data-anchor-index="{{ai}}" data-side="a">
+                      <i class="fa-solid fa-crosshairs"></i> Mark Scene A
+                    </button>
+                  </div>
+
+                  <div class="md-coordinate-group">
+                    <strong>B</strong>
+                    <input type="number" step="0.01" value="{{anchor.b.x}}" placeholder="X" data-link-index="{{li}}" data-anchor-index="{{ai}}" data-side="b" data-axis="x" />
+                    <input type="number" step="0.01" value="{{anchor.b.y}}" placeholder="Y" data-link-index="{{li}}" data-anchor-index="{{ai}}" data-side="b" data-axis="y" />
+                    <span></span>
+                    <button type="button" class="md-capture" data-link-index="{{li}}" data-anchor-index="{{ai}}" data-side="b">
+                      <i class="fa-solid fa-crosshairs"></i> Mark Scene B
+                    </button>
+                  </div>
+
+                  <button type="button" class="md-delete-anchor" data-link-index="{{li}}" data-anchor-index="{{ai}}" title="Delete this matching point">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              {{/each}}
+            {{else}}
+              <p class="md-empty">No matching points have been added. The module will assume the two maps already use the same coordinates.</p>
+            {{/if}}
+          </div>
+        </section>
+      {{/each}}
+    {{else}}
+      <p class="md-empty">No Scene links have been set up yet.</p>
+    {{/if}}
+  </div>
+
+  {{!-- Buttons that add another Scene connection or save the complete draft. --}}
+  <div class="md-actions">
+    <button type="button" class="md-add-link"><i class="fa-solid fa-plus"></i> Add Scene Link</button>
+    <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Scene Links</button>
+  </div>
+</form>

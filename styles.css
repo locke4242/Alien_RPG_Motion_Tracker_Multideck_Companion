@@ -1,0 +1,124 @@
+/*
+ * Alien RPG - Motion Tracker Multideck Companion
+ * ------------------------------------------------
+ * These styles affect only the Scene Links configuration window.
+ */
+
+/* Help box at the top of the configuration window. */
+.motion-tracker-multideck .md-help {
+  margin: 0 0 0.75rem 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border-light-primary, #777);
+  border-radius: 4px;
+}
+
+/* Each Scene link gets its own bordered card so multiple links are easy to scan. */
+.motion-tracker-multideck .md-link {
+  border: 1px solid var(--color-border-light-primary, #777);
+  border-radius: 4px;
+  padding: 0.65rem;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Shared row layout for headings, matching-point controls, and bottom actions. */
+.motion-tracker-multideck .md-link-header,
+.motion-tracker-multideck .md-anchor-header,
+.motion-tracker-multideck .md-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Put the Scene-link title on the left and its delete button on the right. */
+.motion-tracker-multideck .md-link-header {
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.motion-tracker-multideck .md-link-header h3 {
+  margin: 0;
+}
+
+/* Two columns keep Scene A and Scene B settings visually paired. */
+.motion-tracker-multideck .md-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 0.75rem;
+}
+
+/* Stack each label directly above its field for easier reading. */
+.motion-tracker-multideck .md-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.motion-tracker-multideck .md-field label {
+  font-weight: 600;
+}
+
+/* Separate matching points from the general Scene-link settings. */
+.motion-tracker-multideck .md-anchor-list {
+  margin-top: 0.75rem;
+}
+
+/* Matching-point heading on the left, Add Matching Point button on the right. */
+.motion-tracker-multideck .md-anchor-header {
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+/*
+ * One matching-point row contains:
+ *   1. the row number,
+ *   2. Scene A coordinates and Mark button,
+ *   3. Scene B coordinates and Mark button,
+ *   4. the delete button.
+ */
+.motion-tracker-multideck .md-anchor {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  border-top: 1px solid var(--color-border-light-tertiary, #555);
+  padding: 0.45rem 0;
+}
+
+/* Arrange each A/B coordinate group as label + X field + Y field. */
+.motion-tracker-multideck .md-coordinate-group {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.motion-tracker-multideck .md-coordinate-group strong {
+  min-width: 1.2rem;
+}
+
+/* Let coordinate inputs use all available space inside their grid cell. */
+.motion-tracker-multideck input[type="number"] {
+  width: 100%;
+}
+
+/* Empty-state messages are intentionally quieter than normal instructions. */
+.motion-tracker-multideck .md-empty {
+  opacity: 0.8;
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+/* Keep the main Add and Save buttons together at the lower-right. */
+.motion-tracker-multideck .md-actions {
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+/*
+ * Reserved visual state for a Mark Scene button while a canvas point is being
+ * chosen. The current JavaScript does not rely on this class for functionality;
+ * keeping it preserves the original styling hook for future UI improvements.
+ */
+.motion-tracker-multideck .md-capture-active {
+  outline: 2px solid var(--color-warm-1, #ff9f1c);
+}

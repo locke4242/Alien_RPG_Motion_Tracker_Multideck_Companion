@@ -1,0 +1,33 @@
+{
+  "id": "motion-tracker-multideck",
+  "title": "Alien RPG - Motion Tracker Multideck Companion",
+  "description": "Companion for Alien RPG - Motion Tracker. It lets the Motion Tracker detect moving tokens on other linked Foundry Scenes, so separate Scenes can act like different levels of the same ship, station, or facility.",
+  "version": "1.0.1",
+  "authors": [
+    {
+      "name": "LostestLocke"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "esmodules": [
+    "scripts/multideck.js"
+  ],
+  "styles": [
+    "styles.css"
+  ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "motion_tracker",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.5.5"
+        },
+        "reason": "This module extends Alien RPG - Motion Tracker and does nothing without it."
+      }
+    ]
+  }
+}
