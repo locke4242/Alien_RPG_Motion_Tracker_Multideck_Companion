@@ -33,6 +33,11 @@
         },
         "reason": "This module extends Alien RPG - Motion Tracker and does nothing without it."
       }
-    ]
+    ],
+    "systems": [
+            {
+                "id": "alienrpg"
+            }
+        ]
   }
 }
