@@ -27,7 +27,6 @@
       {
         "id": "motion_tracker",
         "type": "module",
-        "manifest": "https://raw.githubusercontent.com/pplans/foundry-vtt-module-motion-tracker/main/module.json",
         "compatibility": {
           "minimum": "1.5.5"
         },
