@@ -1,6 +1,6 @@
 # Alien RPG - Motion Tracker Multideck Companion
 
-This is a companion for **Alien RPG - Motion Tracker** (https://foundryvtt.com/packages/motion_tracker/). It lets the Motion Tracker detect moving tokens on other Foundry Scenes that represent different levels of the same ship, station, or facility.
+This is a companion for **Alien RPG - Motion Tracker**. It lets the Motion Tracker detect moving tokens on other Foundry Scenes that represent different levels of the same ship, station, or facility.
 
 The module keeps the original Motion Tracker intact. It does not create extra tokens, move tokens, or permanently change either Scene.
 
@@ -8,6 +8,12 @@ The module keeps the original Motion Tracker intact. It does not create extra to
 
 - Foundry VTT v14, including build 365
 - Alien RPG - Motion Tracker 1.5.5 or later
+
+## Important update note
+
+The displayed module name changed in version 1.0.1, but its internal Foundry module ID is still `motion-tracker-multideck`.
+
+That is intentional. Keeping the same ID means you can replace version 1.0.0 with this version without losing the Scene links you already configured.
 
 ## What it does
 
@@ -31,13 +37,36 @@ The tracker still behaves like the original Motion Tracker:
 4. Enable **Alien RPG - Motion Tracker** and **Alien RPG - Motion Tracker Multideck Companion** in the world.
 5. Open **Configure Settings → Module Settings → Alien RPG - Motion Tracker Multideck Companion → Configure Scene Links**.
 
+
+## Installing with a Manifest URL
+
+For the normal installation, use this Manifest URL in Foundry:
+
+`https://github.com/locke4242/Alien_RPG_Motion_Tracker_Multideck_Companion/releases/latest/download/module.json`
+
+This address always points to the newest published release. Foundry can also use it later to check whether a newer version is available.
+
+## Installing an older version
+
+Older releases  stay available on GitHub. Each release includes its own `module.json` and `module.zip`.
+
+To install a specific older version, use that release's version-specific Manifest URL. For version 1.0.1, use:
+
+`https://github.com/locke4242/Alien_RPG_Motion_Tracker_Multideck_Companion/releases/download/1.0.1/module.json`
+
+The same pattern works for later versions. For example, version 1.0.2 would use:
+
+`https://github.com/locke4242/Alien_RPG_Motion_Tracker_Multideck_Companion/releases/download/1.0.2/module.json`
+
 ## Setting up two Scenes
 
 1. Click **Add Scene Link**.
 2. Choose **Scene A** and **Scene B**.
-3. Enter **Scene B elevation compared with Scene A**. This is the real physical distance between the two levels. For example, enter `3` if Scene B is 3 meters above Scene A.
-4. Add a **Matching Point**. Click **Mark Scene A** and then click a recognizable location on Scene A. Next click **Mark Scene B** and click the matching physical location on Scene B. A ladder, lift, stairwell, or teleporter landing is a good matching point because it represents the same physical place on both maps.
+3. Enter **Scene B elevation compared with Scene A**. This is the real physical distance between the two levels, using the same distance unit as your Scene. For example, enter `3` if Scene B is 3 meters above Scene A.
+4. Add a **Matching Point**. Click **Mark Scene A** and then click a recognizable location on Scene A. Next click **Mark Scene B** and click the same physical location on Scene B.
 5. Save the Scene links.
+
+A ladder, lift, stairwell, or teleporter landing is a good matching point because it represents the same physical place on both maps.
 
 ## How many matching points should I use?
 
@@ -46,13 +75,13 @@ Use the smallest number that makes the contacts line up correctly.
 - **No matching points:** Use this only when both Scene maps already use exactly the same coordinates.
 - **One matching point:** Usually enough when both maps face the same direction and use the same scale.
 - **Two matching points:** Use this when one map is rotated or is a different size.
-- **Three matching points:** Use this when the maps are stretched differently and two points are not enough.
+- **Three matching points:** Use this only when the maps are stretched differently and two points are not enough.
 
 If contacts appear mirrored, rotated, or shifted to the wrong place, add another matching point or mark the existing points again.
 
 ## Contacts directly above or below
 
-The Motion Tracker is a flat, two-dimensional display. A contact directly above or below the user has a distance, but no clear left/right direction on that display.
+A normal Motion Tracker is a flat, two-dimensional display. A contact directly above or below the user has a distance, but no clear left/right direction on that display.
 
 The setting **If a contact is exactly above or below** gives you two choices:
 

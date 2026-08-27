@@ -14,8 +14,8 @@
   <div class="md-help">
     <p><strong>Use this screen to tell the Motion Tracker which Scenes are different levels of the same place.</strong></p>
     <p>Choose <strong>Scene A</strong> and <strong>Scene B</strong>. Then add matching map points so the module knows how the two maps line up. A good matching point is the center of a ladder, lift, stairwell, or teleporter that exists on both Scenes.</p>
-    <p>If both maps face the same direction and use the same scale, one matching point is usually enough. Use two if one map is rotated or a different size. Use three only if the maps are stretched differently.</p>
-    <p><strong>Scene B elevation compared with Scene A</strong> is the physical distance between the two levels, using the same distance unit as the Scene. For example, enter <code>3</code> if Scene B is 3 meters above Scene A. Players only see the total range to a contact; the tracker does not tell them whether it is above or below.</p>
+    <p>If both maps face the same direction and size/scale, one matching point is usually enough. Use two if one map is rotated or a different size. Use three if the maps are stretched differently.</p>
+    <p><strong>Scene B elevation compared with Scene A</strong> is the physical distance between the two levels. For example, enter <code>3</code> if Scene B is 3 meters above Scene A. Players only see the total range to a contact; the tracker does not tell them whether it is above or below.</p>
   </div>
 
   {{!-- Every configured Scene link is rendered as one card. --}}
@@ -34,7 +34,7 @@
           <div class="md-grid">
             <div class="md-field">
               <label>Link name</label>
-              <input type="text" value="{{link.name}}" data-link-index="{{li}}" data-field="name" placeholder="e.g. USCSS Fidanza A/B" />
+              <input type="text" value="{{link.name}}" data-link-index="{{li}}" data-field="name" placeholder="e.g. USCSS Chupacabra A/B" />
             </div>
             <div class="md-field">
               <label>Enabled</label>

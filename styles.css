@@ -2,6 +2,8 @@
  * Alien RPG - Motion Tracker Multideck Companion
  * ------------------------------------------------
  * These styles affect only the Scene Links configuration window.
+ * The class names still begin with "motion-tracker-multideck" so the module can
+ * keep its original internal ID and remain a drop-in update from version 1.0.0.
  */
 
 /* Help box at the top of the configuration window. */
