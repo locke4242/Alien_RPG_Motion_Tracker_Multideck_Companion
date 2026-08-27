@@ -11,11 +11,11 @@
  *
  * IMPORTANT DESIGN CHOICES
  * 1. The original Motion Tracker files are never edited. This makes updates to
- *    the original module much less likely to impact this companion's work.
+ *    the original module much less likely to erase this companion's work.
  * 2. No real tokens are copied, moved, or saved. Remote tokens are represented by
  *    short-lived plain JavaScript objects that exist only while one tracker scan
  *    is being calculated.
- *
+
  * HOW MAP MATCHING WORKS
  * A "matching point" is the same physical place marked once on Scene A and once
  * on Scene B, such as the center of a ladder or lift.
@@ -25,7 +25,7 @@
  *   - 3+ points: allow a more general map correction if one image is stretched.
  *
  * HOW RANGE BETWEEN LEVELS WORKS
- * The motion tracker is two-dimensional. For contacts on another Scene, this
+ * The normal tracker is two-dimensional. For contacts on another Scene, this
  * module combines the horizontal map distance with the configured vertical
  * separation using the Pythagorean theorem. It then places the temporary stand-in
  * farther from the center so the original Motion Tracker reports that 3D range.
@@ -371,7 +371,9 @@ function buildTraversal(baseSceneId) {
 }
 
 /**
- * Return the center point of a token.
+ * Return the center point of a token. We prefer the original Motion Tracker's own
+ * helper so our calculations match its behavior exactly. The fallback is here only
+ * in case that helper is unavailable in a future version.
  */
 function tokenCenter(device, token) {
   if (typeof device.computeTokenCenter === "function") return device.computeTokenCenter(token);
@@ -379,7 +381,7 @@ function tokenCenter(device, token) {
 }
 
 /**
- * Build the temporary combined Scene that is the heart of how this module works.
+ * Build the temporary combined Scene that is the heart of this companion module.
  *
  * The returned object contains:
  *   - every real token from the current Scene, unchanged; and
@@ -600,11 +602,6 @@ function patchMotionTrackerOpen() {
 
 /**
  * GM settings window for creating and editing Scene links.
- *
- * This is deliberately an old-style FormApplication because Alien RPG - Motion
- * Tracker 1.5.5 also uses Foundry's appv1 compatibility API on Foundry v14. Keeping
- * the companion in the same application family reduces unnecessary compatibility
- * risk.
  */
 class SceneLinkManager extends foundry.appv1.api.FormApplication {
   /**
@@ -805,7 +802,7 @@ class SceneLinkManager extends foundry.appv1.api.FormApplication {
 
   /**
    * Save the current draft to the world setting. Before saving, reject the one setup
-   * error that doesn't make sense: using the exact same Foundry Scene as both A and B.
+   * error that cannot make sense: using the exact same Foundry Scene as both A and B.
    */
   async _updateObject(_event, _formData) {
     this._syncFromForm();
